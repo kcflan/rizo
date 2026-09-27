@@ -19,7 +19,7 @@ PDF export always prints the light inks on white paper, from either theme.
 ## Install
 
 1. Download the latest `rizo-<version>.zip` from [Releases](../../releases).
-2. In Typora: **Preferences › Appearance › Open Theme Folder**.
+2. In Typora: **Settings › Appearance › Open Theme Folder**.
 3. Unzip into that folder so it contains `rizo.css`, `rizo-dark.css` and the `rizo/` folder.
 4. Restart Typora and pick **Themes › Rizo** or **Themes › Rizo Dark**.
 
