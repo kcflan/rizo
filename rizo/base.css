@@ -1,0 +1,391 @@
+/* ==========================================================================
+   rizo — a two-ink risograph theme for Typora
+   Core stylesheet. Imported by rizo.css (light) and rizo-dark.css (dark).
+   Every color below comes from a --rizo-* token; the light (Fluorescent Pink
+   + Blue on cream) values live here, and rizo-dark.css overrides them.
+   ========================================================================== */
+
+@import "fonts/fonts.css";
+
+/* --------------------------------------------------------------------------
+   Tokens (light) — also used for print/PDF from either theme
+   -------------------------------------------------------------------------- */
+:root {
+  --rizo-paper:      #F5EFE3;
+  --rizo-surface:    #EDE5D4;
+  --rizo-surface-2:  #E4D9C3;
+  --rizo-ink:        #1D1A2C;
+  --rizo-ink-soft:   #3A3550;
+  --rizo-muted:      #7A7263;
+  --rizo-rule:       #DCD1BC;
+
+  --rizo-ink-a:      #F0339A;   /* Fluorescent Pink: shadows, markers, halftones */
+  --rizo-ink-a-text: #C21F7A;   /* pink dark enough to set as text */
+  --rizo-ink-a-soft: #FBD9EA;
+  --rizo-ink-b:      #0068B5;   /* Blue: links, table heads, second shadow */
+  --rizo-on-ink-b:   #FFFFFF;
+  --rizo-link:       var(--rizo-ink-b);
+
+  --rizo-syn-kw:     var(--rizo-ink-b);
+  --rizo-syn-def:    var(--rizo-ink-a-text);
+  --rizo-syn-str:    #1E7A4C;
+  --rizo-syn-num:    #B4530A;
+  --rizo-syn-com:    var(--rizo-muted);
+
+  --rizo-note:       #0068B5;
+  --rizo-tip:        #1E8A55;
+  --rizo-important:  #7B4FC9;
+  --rizo-warning:    #B86A00;
+  --rizo-caution:    #D62F4B;
+
+  --rizo-head:  "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
+  --rizo-body:  "Literata", "Iowan Old Style", Georgia, serif;
+  --rizo-mono:  "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --rizo-measure: 780px;
+  --rizo-offset:  5px;          /* misregistration distance for boxes */
+}
+
+/* --------------------------------------------------------------------------
+   Typora's own variables, mapped onto the tokens (drives sidebar, dialogs,
+   menus, search, source mode chrome)
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-color:                  var(--rizo-paper);
+  --text-color:                var(--rizo-ink);
+  --side-bar-bg-color:         var(--rizo-surface);
+  --control-text-color:        var(--rizo-muted);
+  --control-text-hover-color:  var(--rizo-ink);
+  --item-hover-bg-color:       var(--rizo-surface-2);
+  --item-hover-text-color:     var(--rizo-ink);
+  --active-file-bg-color:      var(--rizo-ink-a-soft);
+  --active-file-text-color:    var(--rizo-ink);
+  --active-file-border-color:  var(--rizo-ink-a);
+  --side-bar-menu-active-tint: var(--rizo-ink-a);
+  --primary-color:             var(--rizo-ink-b);
+  --primary-btn-border-color:  var(--rizo-ink-b);
+  --primary-btn-text-color:    var(--rizo-on-ink-b);
+  --active-toggle-btn-color:   var(--rizo-ink-a);
+  --focus-ring-color:          var(--rizo-ink-b);
+  --window-border:             1px solid var(--rizo-rule);
+  --border-color:              var(--rizo-rule);
+  --panel-border-color:        var(--rizo-rule);
+  --table-border-color:        var(--rizo-rule);
+  --select-text-bg-color:      color-mix(in srgb, var(--rizo-ink-a) 30%, transparent);
+  --search-select-bg-color:    var(--rizo-ink-b);
+  --search-select-text-color:  var(--rizo-on-ink-b);
+  --md-char-color:             var(--rizo-muted);
+  --meta-content-color:        var(--rizo-muted);
+  --heading-char-color:        var(--rizo-ink-a-text);
+  --blur-text-color:           var(--rizo-muted);
+  --rawblock-edit-panel-bd:    var(--rizo-surface-2);
+  --drag-placeholder-color:    var(--rizo-ink-a);
+  --node-fill:                 var(--rizo-surface-2);
+  --monospace:                 var(--rizo-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Page + UI chrome
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 16px;
+  background: var(--rizo-paper);
+  color: var(--rizo-ink);
+  -webkit-font-smoothing: antialiased;
+}
+html, body, button, input, select, textarea, .ty-preferences {
+  font-family: var(--rizo-head);
+}
+body { background: var(--rizo-paper); color: var(--rizo-ink); }
+
+::selection, .in-text-selection { background: var(--select-text-bg-color); text-shadow: none; }
+
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--rizo-ink) 22%, transparent); }
+::-webkit-scrollbar-thumb:active { background: color-mix(in srgb, var(--rizo-ink) 40%, transparent); }
+
+/* Sidebar: file tree, file list, outline */
+#typora-sidebar { background: var(--rizo-surface); color: var(--rizo-ink-soft); border-right: 1px solid var(--rizo-rule); box-shadow: none; }
+.sidebar-tabs { border-bottom: 1px solid var(--rizo-rule); }
+.sidebar-tab { font-weight: 600; letter-spacing: .04em; }
+.active-tab-files #info-panel-tab-file,
+.active-tab-outline #info-panel-tab-outline { color: var(--rizo-ink); box-shadow: inset 0 -2px 0 var(--rizo-ink-a); }
+.file-node-title, .file-list-item-file-name { color: var(--rizo-ink); }
+.file-list-item { border-bottom: 1px solid var(--rizo-rule); }
+.file-list-item-summary, .file-list-item-time, .file-list-item-parent-loc { color: var(--rizo-muted); }
+.file-list-item.active,
+.file-library-node.active > .file-node-background { background: var(--rizo-ink-a-soft); border-left: 3px solid var(--rizo-ink-a); }
+.file-library-node.active > .file-node-content,
+.file-list-item.active .file-list-item-file-name { color: var(--rizo-ink); font-weight: 600; }
+.outline-item { color: var(--rizo-ink-soft); }
+.outline-item:hover { background: var(--rizo-surface-2); border-color: var(--rizo-surface-2); color: var(--rizo-ink); }
+.outline-item-active > .outline-item .outline-label { color: var(--rizo-ink-a-text); font-weight: 700; }
+.outline-h1 > .outline-item .outline-label { font-weight: 700; }
+.sidebar-footer-item:hover, .footer-item:hover { background: transparent; color: var(--rizo-ink); }
+#sidebar-files-menu, .context-menu, .dropdown-menu, #spell-check-panel {
+  background: var(--rizo-paper); color: var(--rizo-ink); border: 1.5px solid var(--rizo-ink);
+  box-shadow: 4px 4px 0 var(--rizo-ink-a);
+}
+.dropdown-menu > li > a, .context-menu .menuitem-group-label { color: var(--rizo-ink); }
+.dropdown-menu > li > a:hover, .dropdown-menu > .active > a,
+.context-menu.dropdown-menu > .active > a, .context-menu.dropdown-menu > li > a:hover {
+  background: var(--rizo-ink-b); color: var(--rizo-on-ink-b);
+}
+.dropdown-menu .divider { background: var(--rizo-rule); }
+
+/* Footer bar (word count, toggles) */
+footer.ty-footer { border-top: 1px solid var(--rizo-rule); background: var(--rizo-paper); }
+#footer-word-count-info { background: var(--rizo-paper); border: 1.5px solid var(--rizo-ink); box-shadow: 3px 3px 0 var(--rizo-ink-a); }
+.typora-sourceview-on #toggle-sourceview-btn, .ty-show-word-count #footer-word-count { background: var(--rizo-surface-2); }
+
+/* Find & replace */
+#md-searchpanel { background: var(--rizo-paper); border-bottom: 1.5px solid var(--rizo-ink); }
+#md-searchpanel input { background: var(--rizo-surface); color: var(--rizo-ink); border: 1px solid var(--rizo-rule); }
+.md-search-hit { background: color-mix(in srgb, var(--rizo-ink-a) 32%, transparent); color: inherit; }
+.md-search-hit.md-search-select { background: var(--rizo-ink-b); color: var(--rizo-on-ink-b); }
+.md-search-hit.md-search-select * { color: var(--rizo-on-ink-b); }
+
+/* Quick open, modals, tooltips, notifications */
+#typora-quick-open, .auto-suggest-container, .modal-content, #md-notification, .popover {
+  background: var(--rizo-paper); color: var(--rizo-ink); border: 1.5px solid var(--rizo-ink);
+  box-shadow: 5px 5px 0 var(--rizo-ink-a); border-radius: 0;
+}
+#typora-quick-open input, .modal-content input {
+  background: var(--rizo-surface); color: var(--rizo-ink); border: 0; border-bottom: 1.5px solid var(--rizo-ink);
+}
+.typora-quick-open-item { color: inherit; background: transparent; }
+.typora-quick-open-item.active, .typora-quick-open-item:hover,
+.auto-suggest-container li.active { background: var(--rizo-ink-b); color: var(--rizo-on-ink-b); }
+.modal-header, .modal-footer { border-color: var(--rizo-rule); }
+.btn-primary { background: var(--rizo-ink-b); border-color: var(--rizo-ink-b); color: var(--rizo-on-ink-b); }
+#ty-tooltip, div.code-tooltip, .md-hover-tip .md-arrow:after { background: var(--rizo-ink); color: var(--rizo-paper); }
+.modal-backdrop.in { background: color-mix(in srgb, var(--rizo-ink) 35%, transparent); opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   The document
+   -------------------------------------------------------------------------- */
+#write {
+  max-width: var(--rizo-measure);
+  padding: 56px 40px 30vh;
+  font-family: var(--rizo-body);
+  font-size: 1.0625rem;           /* 17px, scales with Typora's font size setting */
+  line-height: 1.72;
+  color: var(--rizo-ink);
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+#write p { margin: 0 0 1.1em; }
+
+/* Headings: heavy grotesque, off-register second-ink shadow */
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6 {
+  font-family: var(--rizo-head);
+  color: var(--rizo-ink);
+  font-variation-settings: "opsz" 96;
+}
+#write h1 {
+  font-weight: 800; font-size: 3em; line-height: .98; letter-spacing: -.035em;
+  margin: .2em 0 .55em;
+  text-shadow: 3px 3px 0 color-mix(in srgb, var(--rizo-ink-a) 75%, transparent);
+}
+#write h1 + p { font-size: 1.12em; line-height: 1.6; color: var(--rizo-ink-soft); margin-bottom: 1.8em; }
+#write h2 {
+  font-weight: 800; font-size: 1.7em; line-height: 1.15; letter-spacing: -.025em;
+  margin: 2.2em 0 .7em;
+  text-shadow: 2px 2px 0 color-mix(in srgb, var(--rizo-ink-b) 55%, transparent);
+}
+#write h3 { font-weight: 700; font-size: 1.22em; line-height: 1.3; letter-spacing: -.01em; color: var(--rizo-ink-b); margin: 1.9em 0 .5em; }
+#write h4 { font-weight: 700; font-size: 1.02em; color: var(--rizo-ink-soft); margin: 1.6em 0 .4em; }
+#write h5, #write h6 {
+  font-weight: 700; font-size: .78em; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--rizo-muted); margin: 1.6em 0 .4em;
+}
+#write h1 ::selection, #write h2 ::selection { text-shadow: none; }
+
+/* Inline */
+#write a { color: var(--rizo-link); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .2em;
+  text-decoration-color: color-mix(in srgb, var(--rizo-link) 40%, transparent); }
+#write a:hover { text-decoration-color: var(--rizo-ink-a); }
+#write strong { font-weight: 650; color: var(--rizo-ink); }
+#write em { font-style: italic; }
+#write code {
+  font-family: var(--rizo-mono); font-size: .84em; padding: .12em .38em;
+  background: var(--rizo-ink-a-soft); color: var(--rizo-ink); border-radius: 0;
+}
+#write mark { background: color-mix(in srgb, var(--rizo-ink-a) 30%, transparent); color: inherit; padding: 0 .12em; }
+#write kbd {
+  font-family: var(--rizo-mono); font-size: .76em; padding: .1em .45em; color: var(--rizo-ink);
+  background: var(--rizo-paper); border: 1.5px solid var(--rizo-ink); border-radius: 0;
+  box-shadow: 2px 2px 0 var(--rizo-ink-a);
+}
+#write del { color: var(--rizo-muted); }
+#write sup.md-footnote { background: var(--rizo-ink-a-soft); color: var(--rizo-ink-a-text); border-radius: 0; font-family: var(--rizo-mono); }
+
+/* Lists */
+#write ul, #write ol { padding-left: 1.5em; margin: 0 0 1.2em; }
+#write li { margin: .35em 0; }
+#write li > p { margin: 0; }
+#write li > ul, #write li > ol { margin: .3em 0 .4em; }
+#write li::marker { color: var(--rizo-ink-a); font-family: var(--rizo-head); font-weight: 700; }
+
+/* Task lists */
+#write .md-task-list-item, #write .task-list-item { list-style: none; position: relative; }
+#write .md-task-list-item > input, #write .task-list-item > input {
+  -webkit-appearance: none; appearance: none;
+  position: absolute; left: -1.55em; top: .3em; margin: 0;
+  width: 1em; height: 1em; border: 1.5px solid var(--rizo-ink); border-radius: 0; background: var(--rizo-paper);
+}
+#write .md-task-list-item > input:checked, #write .task-list-item > input:checked,
+#write .task-list-done > input {
+  background: var(--rizo-ink-a); border-color: var(--rizo-ink); box-shadow: inset 0 0 0 2px var(--rizo-paper);
+}
+#write .task-list-done > p,
+#write .task-list-item:has(> input:checked) > p { color: var(--rizo-muted); text-decoration: line-through; text-decoration-color: var(--rizo-ink-a); }
+
+/* Blockquote: halftone dot screen */
+#write blockquote:not(.md-alert) {
+  margin: 1.5em 0; padding: 1em 1.25em; border: 0; color: var(--rizo-ink);
+  background-image: radial-gradient(color-mix(in srgb, var(--rizo-ink-a) 35%, transparent) 1px, transparent 1.4px);
+  background-size: 7px 7px;
+}
+#write blockquote:not(.md-alert) > :last-child { margin-bottom: 0; }
+
+/* GitHub-style alerts: > [!NOTE] ... Typora renders a label span + <br> */
+#write .md-alert {
+  --c: var(--rizo-note);
+  margin: 1.5em 0; padding: .95em 1.15em; border: 2px solid var(--c); border-radius: 0;
+  background: color-mix(in srgb, var(--c) 7%, var(--rizo-paper)); color: var(--rizo-ink);
+}
+#write .md-alert-note      { --c: var(--rizo-note); }
+#write .md-alert-tip       { --c: var(--rizo-tip); }
+#write .md-alert-important { --c: var(--rizo-important); }
+#write .md-alert-warning   { --c: var(--rizo-warning); }
+#write .md-alert-caution   { --c: var(--rizo-caution); }
+#write .md-alert > p { margin: 0; }
+#write .md-alert > p + p { margin-top: .6em; }
+#write .md-alert-text {
+  font-family: var(--rizo-head); font-size: .74em; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--c);
+}
+#write .md-alert-text svg { fill: currentColor; height: 1.1em; width: auto; vertical-align: -.15em; }
+
+/* Horizontal rule: dashed pink ink */
+#write hr {
+  border: 0; height: 6px; margin: 2.6em 0;
+  background: repeating-linear-gradient(90deg, var(--rizo-ink-a) 0 12px, transparent 12px 20px);
+}
+
+/* Tables: inked box with offset second-ink block */
+#write .table-figure, #write figure.md-table-fig {
+  margin: 1.6em calc(var(--rizo-offset) + 2px) 2em 0;
+  border: 2px solid var(--rizo-ink);
+  box-shadow: var(--rizo-offset) var(--rizo-offset) 0 var(--rizo-ink-a);
+  background: var(--rizo-paper);
+}
+#write table { border-collapse: collapse; width: 100%; margin: 0; font-family: var(--rizo-head); font-size: .86em; line-height: 1.5; }
+#write th {
+  text-align: left; font-weight: 700; font-size: .84em; letter-spacing: .05em; text-transform: uppercase;
+  background: var(--rizo-ink-b); color: var(--rizo-on-ink-b); border: 0;
+}
+#write th, #write td { padding: .62em .9em; vertical-align: top; border: 0; }
+#write tbody tr + tr td { border-top: 1px solid var(--rizo-rule); }
+#write td code { font-size: .92em; }
+#write .md-table-edit, #write .ty-table-edit { background: var(--rizo-surface); border-top: 1px solid var(--rizo-rule); }
+
+/* Code blocks: inked box with offset blue block, language chip on the edge */
+#write .md-fences {
+  position: relative;
+  margin: 1.6em calc(var(--rizo-offset) + 2px) 2em 0;
+  padding: 18px 20px;
+  font-family: var(--rizo-mono); font-size: .8em; line-height: 1.65;
+  color: var(--rizo-ink); background: var(--rizo-surface);
+  border: 2px solid var(--rizo-ink); border-radius: 0;
+  box-shadow: var(--rizo-offset) var(--rizo-offset) 0 var(--rizo-ink-b);
+}
+#write .md-fences[lang]:not([lang=""]):not([lang="mermaid"]):not([lang="flow"]):not([lang="sequence"]):not([lang="math"])::before {
+  content: attr(lang);
+  position: absolute; top: -.85em; left: 14px; z-index: 1;
+  padding: 2px 7px; font: 700 10px/1.4 var(--rizo-mono); letter-spacing: .08em; text-transform: uppercase;
+  background: var(--rizo-ink); color: var(--rizo-paper);
+}
+#write .md-fences code { background: none; padding: 0; font-size: 1em; }
+#write .md-fences .code-tooltip { background: var(--rizo-surface-2); border: 1px solid var(--rizo-rule); color: var(--rizo-ink-soft); }
+#write .md-fences-advanced:not(.md-focus) { border: 0; box-shadow: none; background: transparent; padding: 0; }
+.CodeMirror-gutters { background: transparent; border-right: 1px solid var(--rizo-rule); }
+.CodeMirror-linenumber { color: var(--rizo-muted); }
+.CodeMirror div.CodeMirror-cursor { border-left: 2px solid var(--rizo-ink-a); }
+.CodeMirror-selected, .CodeMirror-selectedtext { background: color-mix(in srgb, var(--rizo-ink-a) 28%, transparent) !important; }
+
+/* Syntax */
+.cm-s-inner .cm-keyword  { color: var(--rizo-syn-kw); font-weight: 700; }
+.cm-s-inner .cm-def, .cm-s-inner .cm-variable-2, .cm-s-inner .cm-tag { color: var(--rizo-syn-def); }
+.cm-s-inner .cm-string, .cm-s-inner .cm-string-2 { color: var(--rizo-syn-str); }
+.cm-s-inner .cm-number, .cm-s-inner .cm-atom { color: var(--rizo-syn-num); }
+.cm-s-inner .cm-comment  { color: var(--rizo-syn-com); font-style: italic; }
+.cm-s-inner .cm-variable, .cm-s-inner .cm-property, .cm-s-inner .cm-operator { color: var(--rizo-ink); }
+.cm-s-inner .cm-attribute, .cm-s-inner .cm-builtin, .cm-s-inner .cm-variable-3, .cm-s-inner .cm-type { color: var(--rizo-ink-b); }
+.cm-s-inner .cm-meta, .cm-s-inner .cm-qualifier, .cm-s-inner .cm-bracket { color: var(--rizo-muted); }
+.cm-s-inner .cm-header { color: var(--rizo-ink-a-text); font-weight: 700; }
+.cm-s-inner .cm-link { color: var(--rizo-link); }
+.cm-s-inner .cm-positive { color: var(--rizo-tip); }
+.cm-s-inner .cm-negative { color: var(--rizo-caution); }
+
+/* Front matter (common in AI-generated files): a printer's job slip */
+#write pre.md-meta-block {
+  font-family: var(--rizo-mono); font-size: .76em; line-height: 1.6; color: var(--rizo-muted);
+  background: transparent; border: 1.5px dashed var(--rizo-rule); padding: .8em 1em; margin: 0 0 2em;
+}
+
+/* Images, TOC, math, footnotes */
+#write img { border-radius: 0; }
+#write .md-image > .md-meta { color: var(--rizo-muted); background: transparent; }
+#write .md-toc { font-family: var(--rizo-head); border: 1.5px solid var(--rizo-ink); padding: .8em 1em; }
+#write .md-toc-item, #write .md-toc-inner { color: var(--rizo-ink-soft); }
+#write .md-toc-item:hover .md-toc-inner { color: var(--rizo-ink-a-text); }
+#write .md-math-block, #write .md-inline-math svg { color: var(--rizo-ink); }
+#write .footnotes-area { color: var(--rizo-muted); border-top: 1px solid var(--rizo-rule); padding-top: 1em; }
+#write .md-comment { color: var(--rizo-muted); }
+#write .md-meta, #write .md-before, #write .md-after { color: var(--rizo-muted); }
+#write .md-heading-char, #write .md-header-span .md-attr { color: var(--rizo-ink-a-text); }
+
+/* --------------------------------------------------------------------------
+   Focus mode + source mode
+   -------------------------------------------------------------------------- */
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * { color: var(--rizo-muted) !important; text-shadow: none !important; }
+.on-focus-mode li[cid]:not(.md-focus-container) { color: var(--rizo-muted); }
+.on-focus-mode .md-end-block:not(.md-focus) img { opacity: .35; }
+
+#typora-source { background: var(--rizo-paper); }
+#typora-source .CodeMirror { font-family: var(--rizo-mono); font-size: .92rem; line-height: 1.75; color: var(--rizo-ink); }
+.cm-s-typora-default .cm-header    { color: var(--rizo-ink-a-text); font-weight: 700; }
+.cm-s-typora-default .cm-strong    { color: var(--rizo-ink); font-weight: 700; }
+.cm-s-typora-default .cm-em        { font-style: italic; }
+.cm-s-typora-default .cm-link, .cm-s-typora-default .cm-url { color: var(--rizo-link); }
+.cm-s-typora-default .cm-string    { color: var(--rizo-ink-b); }
+.cm-s-typora-default .cm-quote     { color: var(--rizo-ink-soft); font-style: italic; }
+.cm-s-typora-default .cm-variable-2, .cm-s-typora-default .cm-variable-3, .cm-s-typora-default .cm-keyword { color: var(--rizo-ink-a-text); }
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code { color: var(--rizo-syn-str); }
+.cm-s-typora-default .cm-hr, .cm-s-typora-default .cm-meta, .cm-s-typora-default .cm-formatting { color: var(--rizo-muted); }
+.cm-s-typora-default .CodeMirror-activeline-background { background: color-mix(in srgb, var(--rizo-ink-a) 7%, transparent); }
+.cm-s-typora-default div.CodeMirror-cursor { border-left: 2px solid var(--rizo-ink-a); }
+
+/* --------------------------------------------------------------------------
+   Print / PDF export: always light tokens on white paper, in both themes
+   -------------------------------------------------------------------------- */
+@media print {
+  :root {
+    --rizo-paper: #FFFFFF; --rizo-surface: #F6F1E6; --rizo-surface-2: #EDE5D4;
+    --rizo-ink: #1D1A2C; --rizo-ink-soft: #3A3550; --rizo-muted: #6F6757; --rizo-rule: #DCD1BC;
+    --rizo-ink-a: #F0339A; --rizo-ink-a-text: #C21F7A; --rizo-ink-a-soft: #FBD9EA;
+    --rizo-ink-b: #0068B5; --rizo-on-ink-b: #FFFFFF; --rizo-link: #0068B5;
+    --rizo-syn-kw: #0068B5; --rizo-syn-def: #C21F7A; --rizo-syn-str: #1E7A4C; --rizo-syn-num: #B4530A; --rizo-syn-com: #6F6757;
+    --rizo-note: #0068B5; --rizo-tip: #1E8A55; --rizo-important: #7B4FC9; --rizo-warning: #B86A00; --rizo-caution: #D62F4B;
+  }
+  html, body { background: #FFFFFF !important; }
+  #write { max-width: none; padding: 0 !important; font-size: 11pt; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #write h1, #write h2, #write h3, #write h4 { break-after: avoid-page; }
+  #write .md-fences, #write .table-figure, #write blockquote, #write .md-alert, #write img { break-inside: avoid; }
+  #write p, #write li { orphans: 3; widows: 3; }
+}
+
+/* Exported HTML page */
+.typora-export body, body.typora-export { background: var(--rizo-paper); }
