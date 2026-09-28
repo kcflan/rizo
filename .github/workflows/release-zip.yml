@@ -1,0 +1,42 @@
+# Build rizo.zip and attach it to a release, so every release has the asset the
+# Typora gallery's Download button points at (releases/latest/download/rizo.zip).
+#
+# Runs when a release is published. To rebuild the zip for an existing release,
+# run it by hand from the Actions tab and give the tag, e.g. v1.0.0.
+name: Release zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to rebuild the zip for, e.g. v1.0.0
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Build dist/rizo.zip
+        run: scripts/package.sh "${TAG#v}"
+
+      - name: Attach to the release
+        run: gh release upload "$TAG" dist/rizo.zip --clobber
+
+      - name: Check the release has it
+        run: |
+          local_size="$(wc -c < dist/rizo.zip | tr -d ' ')"
+          remote_size="$(gh release view "$TAG" --json assets --jq '.assets[] | select(.name == "rizo.zip") | .size')"
+          echo "local $local_size, on release ${remote_size:-missing}"
+          [[ "$local_size" == "$remote_size" ]]

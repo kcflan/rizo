@@ -66,6 +66,8 @@ scripts/install.sh               # macOS / Linux: symlink this repo into Typora'
 scripts/install.sh --uninstall   # remove the symlinks
 scripts/package.sh 1.0.0         # build dist/rizo.zip for a release
 scripts/refresh-release.sh       # small fix: move the latest tag here and replace its zip (needs gh)
+scripts/typora-screenshot.sh     # capture the gallery thumbnail from Typora, light + dark (--use split)
+scripts/typora-pdf.sh            # export samples/sample.md to PDF in both themes, into dist/pdf/
 python3 scripts/getfonts.py      # re-download the bundled fonts
 ```
 
