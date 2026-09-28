@@ -62,11 +62,20 @@ Bundled, so it works offline: [Bricolage Grotesque](https://fonts.google.com/spe
 ## Development
 
 ```bash
-scripts/install.sh               # symlink this repo into Typora's themes folder
+scripts/install.sh               # macOS / Linux: symlink this repo into Typora's themes folder
 scripts/install.sh --uninstall   # remove the symlinks
 scripts/package.sh 1.0.0         # build dist/rizo-1.0.0.zip for a release
 python3 scripts/getfonts.py      # re-download the bundled fonts
 ```
+
+On Windows, from PowerShell:
+
+```powershell
+scripts\install.ps1             # link this repo into %APPDATA%\Typora\themes
+scripts\install.ps1 -Uninstall  # remove the links
+```
+
+File symlinks on Windows need Developer Mode (**Settings › System › For developers**) or an admin PowerShell. Set `TYPORA_THEMES` to use a different themes folder on any OS.
 
 `samples/sample.md` exercises every styled element.
 
