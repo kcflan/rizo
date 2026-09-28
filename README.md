@@ -33,7 +33,7 @@ Two themes, **Rizo** and **Rizo Dark**, printed in Fluorescent Pink + Blue.
 
 1. Download the latest `rizo-<version>.zip` from [Releases](../../releases/latest).
 2. In Typora: **Settings › Appearance › Open Theme Folder**.
-3. Unzip into that folder so it contains `rizo.css`, `rizo-dark.css` and the `rizo/` folder.
+3. Unzip it, then copy `rizo.css`, `rizo-dark.css` and the `rizo/` folder into the theme folder.
 4. Restart Typora and pick **Themes › Rizo** or **Themes › Rizo Dark**.
 
 > [!TIP]
