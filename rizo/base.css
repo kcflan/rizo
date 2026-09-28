@@ -368,18 +368,10 @@ footer.ty-footer { border-top: 1px solid var(--rizo-rule); background: var(--riz
 .cm-s-typora-default div.CodeMirror-cursor { border-left: 2px solid var(--rizo-ink-a); }
 
 /* --------------------------------------------------------------------------
-   Print / PDF export: always light tokens on white paper, in both themes
+   Print / PDF export: the theme's own paper, edge to edge. Typora (macOS) fills PDF page
+   margins with the on-screen background, so printing on white leaves a colored frame.
    -------------------------------------------------------------------------- */
 @media print {
-  :root {
-    --rizo-paper: #FFFFFF; --rizo-surface: #F6F1E6; --rizo-surface-2: #EDE5D4;
-    --rizo-ink: #1D1A2C; --rizo-ink-soft: #3A3550; --rizo-muted: #6F6757; --rizo-rule: #DCD1BC;
-    --rizo-ink-a: #F0339A; --rizo-ink-a-text: #C21F7A; --rizo-ink-a-soft: #FBD9EA;
-    --rizo-ink-b: #0068B5; --rizo-on-ink-b: #FFFFFF; --rizo-link: #0068B5;
-    --rizo-syn-kw: #0068B5; --rizo-syn-def: #C21F7A; --rizo-syn-str: #1E7A4C; --rizo-syn-num: #B4530A; --rizo-syn-com: #6F6757;
-    --rizo-note: #0068B5; --rizo-tip: #1E8A55; --rizo-important: #7B4FC9; --rizo-warning: #B86A00; --rizo-caution: #D62F4B;
-  }
-  html, body { background: #FFFFFF !important; }
   #write { max-width: none; padding: 0 !important; font-size: 11pt; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #write h1, #write h2, #write h3, #write h4 { break-after: avoid-page; }

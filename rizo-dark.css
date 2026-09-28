@@ -1,30 +1,28 @@
 /* rizo Dark: the same two inks, brightened, on midnight paper. Styling lives in rizo/base.css;
-   this file only swaps the tokens on screen. Print/PDF stays light (see base.css). */
+   this file only swaps the tokens, on screen and in print/PDF. */
 @import "rizo/base.css";
 
-@media screen {
-  :root {
-    --rizo-paper:      #18152A;
-    --rizo-surface:    #211D36;
-    --rizo-surface-2:  #2A2542;
-    --rizo-ink:        #F4EDE0;
-    --rizo-ink-soft:   #D6CFC2;
-    --rizo-muted:      #958CA8;
-    --rizo-rule:       #352F52;
+:root {
+  --rizo-paper:      #18152A;
+  --rizo-surface:    #211D36;
+  --rizo-surface-2:  #2A2542;
+  --rizo-ink:        #F4EDE0;
+  --rizo-ink-soft:   #D6CFC2;
+  --rizo-muted:      #958CA8;
+  --rizo-rule:       #352F52;
 
-    --rizo-ink-a:      #FF5CB5;
-    --rizo-ink-a-text: #FF85C8;
-    --rizo-ink-a-soft: #3A1C35;
-    --rizo-ink-b:      #5DB8F5;
-    --rizo-on-ink-b:   #18152A;
+  --rizo-ink-a:      #FF5CB5;
+  --rizo-ink-a-text: #FF85C8;
+  --rizo-ink-a-soft: #3A1C35;
+  --rizo-ink-b:      #5DB8F5;
+  --rizo-on-ink-b:   #18152A;
 
-    --rizo-syn-str:    #7FDBA8;
-    --rizo-syn-num:    #FFB870;
+  --rizo-syn-str:    #7FDBA8;
+  --rizo-syn-num:    #FFB870;
 
-    --rizo-note:       #7CC6FF;
-    --rizo-tip:        #5FD38D;
-    --rizo-important:  #C4A5FF;
-    --rizo-warning:    #F5B454;
-    --rizo-caution:    #FF7B8B;
-  }
+  --rizo-note:       #7CC6FF;
+  --rizo-tip:        #5FD38D;
+  --rizo-important:  #C4A5FF;
+  --rizo-warning:    #F5B454;
+  --rizo-caution:    #FF7B8B;
 }
