@@ -65,7 +65,7 @@ if [[ "$YES" != "1" ]]; then
   [[ "$answer" =~ ^[Yy]$ ]] || { echo "aborted"; exit 1; }
 fi
 
-# 1b. Push main so raw.githubusercontent.com/.../main links (README images) are current
+# 1b. Push main so the tag never points at an unpushed commit, and links to main (the gallery post screenshot) are current
 if [[ "$AHEAD" != "0" ]]; then
   git push origin main
 fi
