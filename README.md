@@ -65,6 +65,7 @@ Bundled, so it works offline: [Bricolage Grotesque](https://fonts.google.com/spe
 scripts/install.sh               # macOS / Linux: symlink this repo into Typora's themes folder
 scripts/install.sh --uninstall   # remove the symlinks
 scripts/package.sh 1.0.0         # build dist/rizo-1.0.0.zip for a release
+scripts/refresh-release.sh       # small fix: move the latest tag here and replace its zip (needs gh)
 python3 scripts/getfonts.py      # re-download the bundled fonts
 ```
 
