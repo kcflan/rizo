@@ -64,7 +64,7 @@ Bundled, so it works offline: [Bricolage Grotesque](https://fonts.google.com/spe
 ```bash
 scripts/install.sh               # macOS / Linux: symlink this repo into Typora's themes folder
 scripts/install.sh --uninstall   # remove the symlinks
-scripts/package.sh 1.0.0         # build dist/rizo.zip for a release
+scripts/package.sh 1.0.0         # build dist/rizo.zip locally (releases get theirs from CI)
 scripts/refresh-release.sh       # small fix: move the latest tag here and replace its zip (needs gh)
 scripts/typora-screenshot.sh     # capture the gallery thumbnail from Typora, light + dark (--use split)
 scripts/typora-pdf.sh            # export samples/sample.md to PDF in both themes, into dist/pdf/
@@ -81,6 +81,27 @@ scripts\install.ps1 -Uninstall  # remove the links
 File symlinks on Windows need Developer Mode (**Settings › System › For developers**) or an admin PowerShell. Set `TYPORA_THEMES` to use a different themes folder on any OS.
 
 `samples/sample.md` exercises every styled element.
+
+### Releasing
+
+Before a release, check the theme in Typora itself. Typora caches theme CSS, so quit and reopen it after editing the theme, then:
+
+```bash
+scripts/typora-pdf.sh                     # check the PDF pages in dist/pdf/*-pages.png
+scripts/typora-screenshot.sh --use split  # only if the look changed: new gallery thumbnail
+```
+
+**New version.** Bump the last number for fixes (1.0.1) and the middle one for visible design changes (1.1.0). Commit and push, then publish the release on GitHub or with:
+
+```bash
+gh release create v1.1.0 --title "rizo 1.1.0" --notes "What changed"
+```
+
+Don't attach anything. The [Release zip](.github/workflows/release-zip.yml) action builds `rizo.zip` from the tag and attaches it within a minute or two. If it fails, GitHub emails you; re-run it from the Actions tab with **Run workflow** and the tag.
+
+**Small fix to the current version.** Commit, then run `scripts/refresh-release.sh`. It pushes `main`, moves the latest tag to it, and replaces `rizo.zip` on that release, without a new version number.
+
+Every release must carry a file named exactly `rizo.zip`: the install link above and the Typora theme gallery both point at `releases/latest/download/rizo.zip`. Both paths above take care of that.
 
 ## License
 
