@@ -2,8 +2,8 @@
 # Refresh an existing GitHub release in place, for small fixes that don't deserve a new version:
 #   1. make sure the working tree is clean and main is pushed
 #   2. move the release tag to the current commit and force-push it
-#   3. rebuild dist/rizo-<version>.zip
-#   4. replace the zip attached to the release
+#   3. rebuild dist/rizo.zip
+#   4. replace rizo.zip on the release (and remove an old rizo-<version>.zip, the name 1.0.0 shipped with)
 #
 # Usage: scripts/refresh-release.sh [version] [--yes]
 #   version  defaults to the newest v* tag, e.g. 1.0.0
@@ -35,7 +35,7 @@ if [[ -z "$VERSION" ]]; then
   [[ -n "$VERSION" ]] || die "no v* tags found; pass a version, e.g. scripts/refresh-release.sh 1.0.0"
 fi
 TAG="v$VERSION"
-ZIP="dist/rizo-$VERSION.zip"
+ZIP="dist/rizo.zip"
 
 # 1. Clean tree, on main, main pushed
 [[ -z "$(git status --porcelain)" ]] || die "you have uncommitted changes. Commit or stash them first."
@@ -81,9 +81,13 @@ scripts/package.sh "$VERSION"
 
 # 4. Replace the asset, then check GitHub has the new one
 gh release upload "$TAG" "$ZIP" --clobber
+if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -qx "rizo-$VERSION.zip"; then
+  gh release delete-asset "$TAG" "rizo-$VERSION.zip" --yes
+  echo "removed the old rizo-$VERSION.zip asset"
+fi
 LOCAL_SIZE="$(wc -c < "$ZIP" | tr -d ' ')"
-REMOTE_SIZE="$(gh release view "$TAG" --json assets --jq ".assets[] | select(.name == \"rizo-$VERSION.zip\") | .size")"
+REMOTE_SIZE="$(gh release view "$TAG" --json assets --jq ".assets[] | select(.name == \"rizo.zip\") | .size")"
 [[ "$LOCAL_SIZE" == "$REMOTE_SIZE" ]] || die "uploaded asset size ($REMOTE_SIZE) doesn't match local zip ($LOCAL_SIZE)"
 
-echo "done: $TAG now points at ${HEAD_SHA:0:7}, rizo-$VERSION.zip replaced ($LOCAL_SIZE bytes)"
+echo "done: $TAG now points at ${HEAD_SHA:0:7}, rizo.zip replaced ($LOCAL_SIZE bytes)"
 echo "      $(gh release view "$TAG" --json url --jq .url)"

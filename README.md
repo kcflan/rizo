@@ -31,7 +31,7 @@ Two themes, **Rizo** and **Rizo Dark**, printed in Fluorescent Pink + Blue.
 > [!IMPORTANT]
 > Requires **Typora 1.8 or later**. Older versions lack the alert blocks and the modern CSS rizo's colours and shadows rely on.
 
-1. Download the latest `rizo-<version>.zip` from [Releases](../../releases/latest).
+1. Download [`rizo.zip`](../../releases/latest/download/rizo.zip) from the [latest release](../../releases/latest).
 2. In Typora: **Settings › Appearance › Open Theme Folder**.
 3. Unzip it, then copy `rizo.css`, `rizo-dark.css` and the `rizo/` folder into the theme folder.
 4. Restart Typora and pick **Themes › Rizo** or **Themes › Rizo Dark**.
@@ -64,7 +64,7 @@ Bundled, so it works offline: [Bricolage Grotesque](https://fonts.google.com/spe
 ```bash
 scripts/install.sh               # macOS / Linux: symlink this repo into Typora's themes folder
 scripts/install.sh --uninstall   # remove the symlinks
-scripts/package.sh 1.0.0         # build dist/rizo-1.0.0.zip for a release
+scripts/package.sh 1.0.0         # build dist/rizo.zip for a release
 scripts/refresh-release.sh       # small fix: move the latest tag here and replace its zip (needs gh)
 python3 scripts/getfonts.py      # re-download the bundled fonts
 ```
