@@ -50,7 +50,7 @@ Two themes, **Rizo** and **Rizo Dark**, printed in Fluorescent Pink + Blue.
 | **Off-register headings** in Bricolage Grotesque, a Literata lead paragraph | **Inked tables** with a blue header row and an offset pink block |
 | <img src="docs/readme/detail-alerts.png" alt="Note and warning alerts in Rizo Dark"> | <img src="docs/readme/detail-code.png" alt="Code block with language chip in Rizo Dark"> |
 | **Alerts** (`> [!NOTE]`, `TIP`, `IMPORTANT`, `WARNING`, `CAUTION`), shown in Rizo Dark | **Code blocks** in Space Mono with a language chip and ink syntax colors |
-| <img src="docs/readme/detail-quote-tasks.png" alt="Halftone blockquote and task list"> | <img src="docs/readme/detail-pdf.png" alt="First page of a PDF export on cream paper"> |
+| <img src="docs/readme/detail-quote-tasks.png" alt="Halftone blockquote and task list"> | <img src="docs/readme/detail-pdf.png" alt="First page of a PDF export from Rizo on cream paper and from Rizo Dark on midnight paper"> |
 | **Halftone quotes** and inked task lists | **PDF export** keeps the theme's paper edge to edge: cream from Rizo, midnight from Rizo Dark. Typora colors the PDF margins with the theme's background, so a white page would sit inside a colored frame |
 
 Also styled: h1–h6, YAML front matter, footnotes, highlights, `<kbd>`, TOC, and Typora's sidebar, outline, search, quick open, menus, focus mode and source mode.
